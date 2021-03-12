@@ -18,9 +18,12 @@ func ScheduleJobs(analysisClient *jobs.AnalysisClient) error {
 
 	// run every day at 22:00
 	err = jobrunner.Schedule("0 22 * * *", jobs.NewHistoryUpdateJob(analysisClient))
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
-
 
 func main() {
 	config := jobs.NewJobsConfig()
@@ -41,7 +44,9 @@ func main() {
 		log.Fatalf("failed to schedule jobs: %v", err)
 	}
 
-	routes := SetupRoutes()
+	routes := jobs.SetupRoutes()
+
+	jobrunner.Now(jobs.NewSymbolUpdateJob(analysisClient))
 
 	if err := routes.Run(":8080"); err != nil {
 		log.Fatalf("failed while listening: %v", err)

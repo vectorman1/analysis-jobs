@@ -19,7 +19,7 @@ func (j SymbolUpdateJob) Run() {
 
 	err := j.analysisClient.UpdateSymbols()
 	if err != nil {
-		log.Printf("[HISTORY JOB] Failed update job:\n - elapsed: %v\n", time.Since(start).Seconds())
+		log.Printf("[SYMBOL JOB] Failed update job:\n - elapsed: %v\n", time.Since(start).Seconds())
 		return
 	}
 

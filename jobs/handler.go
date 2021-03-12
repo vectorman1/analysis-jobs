@@ -1,4 +1,4 @@
-package main
+package jobs
 
 import (
 	"github.com/bamzi/jobrunner"
@@ -9,7 +9,7 @@ func SetupRoutes() *gin.Engine {
 	routes := gin.Default()
 
 	routes.GET("/jobrunner/json", JobJson)
-	routes.LoadHTMLGlob("../github.com/bamzi/jobrunner/views/Status.html")
+	routes.LoadHTMLGlob("./templates/status.html")
 
 	routes.GET("/jobrunner/html", JobHtml)
 
@@ -23,6 +23,5 @@ func JobJson(c *gin.Context) {
 
 func JobHtml(c *gin.Context) {
 	// Returns the template data pre-parsed
-	c.HTML(200, "", jobrunner.StatusPage())
-
+	c.HTML(200, "status.html", jobrunner.StatusPage())
 }

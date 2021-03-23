@@ -35,6 +35,7 @@ func (a *AnalysisClient) UpdateHistories() error {
 	if err != nil {
 		return err
 	}
+	defer res.Body.Close()
 	if len(body) == 0 {
 		return fmt.Errorf("body was empty: %v", res)
 	}
@@ -55,6 +56,7 @@ func (a *AnalysisClient) UpdateSymbols() error {
 	if err != nil {
 		return err
 	}
+	defer res.Body.Close()
 	if len(body) == 0 {
 		return fmt.Errorf("body was empty: %v", res)
 	}
